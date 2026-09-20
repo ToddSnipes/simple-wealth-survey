@@ -1,6 +1,6 @@
 # Outreach copy — Simple Wealth survey
 
-Replace `https://simplewealth-survey.netlify.app/` and `September 18th and 19th` before sending.
+Live link: https://simplewealth-survey.netlify.app/ — replace `[First name]` before sending.
 
 ---
 
