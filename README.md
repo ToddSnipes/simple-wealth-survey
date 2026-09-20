@@ -1,5 +1,13 @@
 # Simple Wealth — Post-Event Survey
 
+**Live at: https://toddsnipes.github.io/simple-wealth-survey/**
+(GitHub Pages, from the `main` branch of github.com/ToddSnipes/simple-wealth-survey.
+Any push to `main` republishes in about a minute.)
+
+> **Responses are NOT being saved yet.** GitHub Pages can't collect form submissions.
+> Do "Option B: Google Sheet" below before you send the link out — until then the
+> Send button will show an error to anyone who tries.
+
 Two files: `index.html` (the page) and `banner.jpg` (the header, cropped from the flyer).
 Keep them in the same folder.
 
@@ -58,8 +66,8 @@ Use this if you'd rather host on your own site/GoDaddy/etc., or just want a Shee
 
 ## Sending it out
 
-Copy for the email and text is in `outreach-copy.md`. Replace `[SURVEY LINK]` with your URL.
-For texts, shorten the link first (bit.ly or similar) — a long netlify URL looks like spam.
+Copy for the email and text is in `outreach-copy.md` with the live link already in it.
+For texts, consider shortening the link (bit.ly or similar).
 
 ## Reading the results
 

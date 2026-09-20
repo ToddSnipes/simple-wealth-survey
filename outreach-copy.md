@@ -1,6 +1,6 @@
 # Outreach copy — Simple Wealth survey
 
-Replace `[SURVEY LINK]` and `[DATE]` before sending.
+Replace `https://toddsnipes.github.io/simple-wealth-survey/` and `[DATE]` before sending.
 
 ---
 
@@ -25,7 +25,7 @@ Now I need something from you — about 8 minutes.
 
 We put together a short survey. It's not a "rate the coffee" form. It asks where you see yourself fitting in — referral partner, acquisitions, passive notes, wholesale, flips, rentals, private money — and what you want the next 6 months, 1 year, and 5 years to look like. That's how Chad and I decide who to call first and what we build next.
 
-**[Take the survey →](SURVEY LINK)**
+**[Take the survey →](https://toddsnipes.github.io/simple-wealth-survey/)**
 
 Two things worth knowing:
 
@@ -48,7 +48,7 @@ Text Chad: 801-403-5272
 
 [First name] — quick nudge. We've heard from about [X] people so far and the follow-up calls are already going out.
 
-If you want in on that, the survey is here: **[SURVEY LINK]**
+If you want in on that, the survey is here: **https://toddsnipes.github.io/simple-wealth-survey/**
 
 8 minutes. Most questions are one tap.
 
@@ -62,23 +62,23 @@ Keep it under 160 characters if you can. Shorten the link first.
 
 **Text 1 — day of / next morning**
 
-> Todd from Simple Wealth here. Thanks for coming out! Quick 8-min survey so we know how to plug you in: [LINK]
+> Todd from Simple Wealth here. Thanks for coming out! Quick 8-min survey so we know how to plug you in: https://toddsnipes.github.io/simple-wealth-survey/
 
 **Text 2 — from Chad (alternate)**
 
-> Chad McCall here — appreciate you being at Simple Wealth. Tell us where you fit and what's next for you: [LINK]
+> Chad McCall here — appreciate you being at Simple Wealth. Tell us where you fit and what's next for you: https://toddsnipes.github.io/simple-wealth-survey/
 
 **Text 3 — reminder, 3 days later**
 
-> Follow-up calls from Simple Wealth are going out this week. Haven't filled out the survey yet? Here it is: [LINK]
+> Follow-up calls from Simple Wealth are going out this week. Haven't filled out the survey yet? Here it is: https://toddsnipes.github.io/simple-wealth-survey/
 
 **Text 4 — last call, 1 week**
 
-> Last call on the Simple Wealth survey — closing it Friday. 8 minutes: [LINK]
+> Last call on the Simple Wealth survey — closing it Friday. 8 minutes: https://toddsnipes.github.io/simple-wealth-survey/
 
 ---
 
 ## Social post (optional, for the group / page)
 
-> Simple Wealth is done, and the room was exactly what we hoped for. If you were there, we want your honest take and where you see yourself fitting in — referrals, notes, flips, rentals, private money, all of it. 8 minutes: [LINK]
+> Simple Wealth is done, and the room was exactly what we hoped for. If you were there, we want your honest take and where you see yourself fitting in — referrals, notes, flips, rentals, private money, all of it. 8 minutes: https://toddsnipes.github.io/simple-wealth-survey/
 > Real people. Real deals. Real opportunity.
