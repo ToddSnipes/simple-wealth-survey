@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simple Wealth Survey</title>
+<meta name="description" content="Tell us what you thought of the event and where you want to plug in.">
+
+<!-- ============================================================
+     EDIT BEFORE YOU SEND  (search this file for "EDIT:")
+     1. Event date in the header (name, location, footer are filled in)
+     2. Optional: SHEETS_ENDPOINT in the script at the bottom if you
+        want responses in a Google Sheet instead of Netlify Forms
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+
+<style>
+  :root{
+    --paper:#FAF6EE;
+    --card:#FFFDF8;
+    --ink:#141C2E;
+    --ink-2:#57607A;
+    --line:#E3DCCD;
+    --line-strong:#C9C1AE;
+    --navy:#1B2A4A;
+    --navy-deep:#0F1A33;
+    --navy-soft:#EAEDF5;
+    --brass:#C99C3B;
+    --brass-ink:#1A1508;
+    --danger:#B3402E;
+    --focus:#2F4A85;
+    --band:#07080C;
+    --radius:10px;
+    --font-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+    --font-body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0F131C; --card:#171D2B; --ink:#EEF0F5; --ink-2:#A3ABBF;
+      --line:#2A3244; --line-strong:#3E4860; --navy:#8FA8E0; --navy-deep:#B4C6F0;
+      --navy-soft:#1C2540; --brass:#E0B44C; --focus:#8FA8E0;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0F131C; --card:#171D2B; --ink:#EEF0F5; --ink-2:#A3ABBF;
+      --line:#2A3244; --line-strong:#3E4860; --navy:#8FA8E0; --navy-deep:#B4C6F0;
+      --navy-soft:#1C2540; --brass:#E0B44C; --focus:#8FA8E0;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--font-body); font-size:17px; line-height:1.5;
+    padding-inline:16px; padding-block:0 64px;
+  }
+  .wrap{max-width:640px; margin:0 auto}
+
+  /* ---------- progress bar ---------- */
+  #progress{
+    position:fixed; top:env(safe-area-inset-top,0px); left:0; height:4px; width:0;
+    background:var(--brass); z-index:10; transition:width .2s;
+  }
+
+  /* ---------- header ---------- */
+  header{padding-block:0 28px}
+  .banner{
+    background:var(--band); margin-inline:-16px;
+    border-bottom:3px solid var(--brass);
+    box-shadow:0 8px 24px -12px rgba(0,0,0,.45);
+  }
+  .banner img{display:block; width:100%; max-width:1024px; height:auto; margin:0 auto}
+  @media (min-width:1056px){
+    .banner{margin-inline:calc(50% - 50vw)}
+  }
+  .intro{padding-top:32px}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--navy);
+  }
+  .eyebrow::before{content:""; width:28px; height:2px; background:var(--brass)}
+  .eyebrow{color:var(--navy)}
+  h1{
+    font-family:var(--font-display); font-weight:800; font-size:clamp(34px,7vw,50px);
+    line-height:1.02; letter-spacing:-.02em; margin:14px 0 14px; text-wrap:balance;
+  }
+  .lede{font-size:18px; color:var(--ink-2); margin:0; max-width:36em}
+  .meta{display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:20px; font-size:14px; color:var(--ink-2)}
+  .meta b{color:var(--ink); font-weight:600}
+
+  /* ---------- parts & questions ---------- */
+  form{display:flex; flex-direction:column; gap:14px}
+  .part{
+    display:flex; align-items:baseline; gap:12px; margin:26px 0 4px;
+    font-family:var(--font-display); font-weight:700; letter-spacing:-.01em;
+  }
+  .part:first-of-type{margin-top:4px}
+  .part .pn{font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--brass); font-weight:700}
+  .part .pt{font-size:20px}
+  .part::after{content:""; flex:1; height:1px; background:var(--line); align-self:center}
+
+  fieldset{
+    border:1px solid var(--line); background:var(--card); border-radius:var(--radius);
+    padding:22px 22px 24px; margin:0; min-width:0;
+  }
+  legend{padding:0; float:left; width:100%; margin-bottom:4px}
+  legend + *{clear:both}
+  .qnum{font-size:12.5px; font-weight:600; letter-spacing:.06em; color:var(--ink-2); text-transform:uppercase}
+  .q{
+    font-family:var(--font-display); font-weight:700; font-size:21px; line-height:1.2;
+    letter-spacing:-.01em; margin:4px 0 6px; text-wrap:balance;
+  }
+  .hint{color:var(--ink-2); font-size:15px; margin:0 0 14px}
+  .req{color:var(--danger); font-weight:600}
+  .sub{margin-top:16px}
+
+  label.f{display:block; font-size:14px; font-weight:600; margin-bottom:6px}
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media (max-width:520px){.grid{grid-template-columns:1fr}}
+  .stack{display:flex; flex-direction:column; gap:12px}
+
+  input[type=text],input[type=email],input[type=tel],textarea{
+    width:100%; font:inherit; font-size:17px; color:var(--ink);
+    background:var(--paper); border:1px solid var(--line-strong); border-radius:8px;
+    padding:12px 14px; transition:border-color .15s, box-shadow .15s;
+  }
+  textarea{min-height:84px; resize:vertical; line-height:1.45}
+  input:focus,textarea:focus{outline:none; border-color:var(--focus); box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 25%,transparent)}
+  ::placeholder{color:var(--ink-2); opacity:.7}
+
+  /* numbered takeaway rows */
+  .take{display:grid; grid-template-columns:36px 1fr; gap:10px; align-items:center}
+  .take .n{
+    font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--navy);
+    text-align:center; font-variant-numeric:tabular-nums;
+  }
+
+  /* 1-10 scale */
+  .scale{display:grid; grid-template-columns:repeat(10,1fr); gap:6px; margin-top:6px}
+  .scale label{position:relative; display:block}
+  .scale input{position:absolute; inset:0; opacity:0; margin:0; cursor:pointer}
+  .scale span{
+    display:flex; align-items:center; justify-content:center; height:48px;
+    border:1px solid var(--line-strong); border-radius:8px; background:var(--paper);
+    font-family:var(--font-display); font-weight:700; font-size:17px;
+    font-variant-numeric:tabular-nums; transition:all .12s; cursor:pointer;
+  }
+  .scale input:hover + span{border-color:var(--navy)}
+  .scale input:focus-visible + span{box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 30%,transparent)}
+  .scale input:checked + span{background:var(--brass); border-color:var(--brass); color:var(--brass-ink)}
+  .scale-ends{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-2); margin-top:8px}
+  @media (max-width:420px){
+    .scale{grid-template-columns:repeat(5,1fr); gap:8px}
+    .scale span{height:52px}
+  }
+
+  /* pills (single or multi select) */
+  .row{display:flex; flex-wrap:wrap; gap:8px}
+  .pill{position:relative}
+  .pill input{position:absolute; inset:0; opacity:0; margin:0; cursor:pointer}
+  .pill span{
+    display:inline-flex; align-items:center; min-height:42px; padding:8px 16px;
+    border:1px solid var(--line-strong); border-radius:999px; background:var(--paper);
+    font-weight:500; font-size:15.5px; line-height:1.25; cursor:pointer; transition:all .12s;
+  }
+  .pill input:hover + span{border-color:var(--navy)}
+  .pill input:checked + span{background:var(--navy); border-color:var(--navy); color:#fff}
+  .pill input:focus-visible + span{box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 30%,transparent)}
+
+  /* choice cards */
+  .choices{display:flex; flex-direction:column; gap:10px}
+  .choice{
+    display:grid; grid-template-columns:24px 1fr; gap:14px; align-items:start;
+    padding:14px 16px; border:1px solid var(--line-strong); border-radius:8px;
+    background:var(--paper); cursor:pointer; transition:all .12s;
+  }
+  .choice:hover{border-color:var(--navy)}
+  .choice:has(input:checked){background:var(--navy-soft); border-color:var(--navy)}
+  .choice:has(input:focus-visible){box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 30%,transparent)}
+  .choice input{width:20px; height:20px; margin:3px 0 0; accent-color:var(--navy); cursor:pointer}
+  .choice .t{font-weight:600; display:block}
+  .choice .d{color:var(--ink-2); font-size:14px; display:block; margin-top:2px}
+  .choice.compact{padding:12px 16px}
+  .choice.compact .t{font-weight:500}
+
+  /* goals timeline */
+  .goals{display:flex; flex-direction:column; gap:14px}
+  .goal{display:grid; grid-template-columns:92px 1fr; gap:14px}
+  .goal .when{
+    font-family:var(--font-display); font-weight:700; font-size:15px; line-height:1.2;
+    color:var(--navy); padding-top:12px;
+  }
+  .goal .when small{display:block; font-family:var(--font-body); font-weight:400; color:var(--ink-2); font-size:12.5px; margin-top:2px}
+  @media (max-width:420px){.goal{grid-template-columns:1fr; gap:6px} .goal .when{padding-top:0}}
+
+  /* consent line */
+  .consent{display:flex; gap:12px; align-items:flex-start; font-size:15px; color:var(--ink-2); margin-top:16px; cursor:pointer}
+  .consent input{width:18px; height:18px; margin:3px 0 0; accent-color:var(--navy); flex:none}
+
+  /* submit */
+  .submit{display:flex; flex-direction:column; gap:12px; align-items:flex-start; padding:12px 0 0}
+  button[type=submit]{
+    font:inherit; font-family:var(--font-display); font-weight:700; font-size:18px;
+    background:var(--navy); color:#fff; border:0; border-radius:10px;
+    padding:16px 30px; cursor:pointer; width:100%; transition:background .15s, transform .05s;
+  }
+  button[type=submit]:hover{background:var(--navy-deep)}
+  button[type=submit]:active{transform:translateY(1px)}
+  button[type=submit]:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+  button[type=submit][disabled]{opacity:.6; cursor:wait}
+  .fine{font-size:13.5px; color:var(--ink-2); margin:0}
+  .err{display:none; color:var(--danger); font-weight:600; font-size:15px}
+  .err.show{display:block}
+
+  /* thank-you */
+  #thanks{display:none; padding:48px 0 20px}
+  #thanks.show{display:block}
+  #thanks .mark{width:56px; height:56px; border-radius:50%; background:var(--brass); display:flex; align-items:center; justify-content:center; margin-bottom:22px}
+  #thanks h2{font-family:var(--font-display); font-size:clamp(30px,6vw,42px); font-weight:800; letter-spacing:-.02em; line-height:1.05; margin:0 0 12px}
+  #thanks p{font-size:18px; color:var(--ink-2); margin:0 0 10px; max-width:34em}
+
+  footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); font-size:14px; color:var(--ink-2)}
+  footer b{color:var(--ink)}
+  footer a{color:var(--navy); font-weight:600; text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none!important} html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+<div class="wrap">
+
+  <header>
+    <div class="banner">
+      <img src="banner.jpg" alt="Simple Wealth — Todd Snipes and Chad McCall. Learn, connect, take action." width="1024" height="586" fetchpriority="high">
+    </div>
+    <div class="intro">
+      <span class="eyebrow">Post-event survey</span>
+      <h1>Thanks for showing up. Now tell us what you think.</h1>
+      <p class="lede">About 8 minutes, mostly taps. Your answers decide what we run next — and how we plug you into the deals.</p>
+      <div class="meta">
+        <span><b>Event:</b> Simple Wealth · Melbourne, FL</span>
+        <!-- EDIT: event date -->
+        <span><b>Date:</b> [Month Day, Year]</span>
+        <span><b>Takes:</b> ~8 min</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- data-netlify="true" makes Netlify collect submissions with zero setup. Harmless elsewhere. -->
+  <form id="survey" name="event-survey" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+    <input type="hidden" name="form-name" value="event-survey">
+    <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
+
+    <!-- ================= PART 1: YOU ================= -->
+    <div class="part"><span class="pn">Part 1 of 5</span><span class="pt">About you</span></div>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 1</span>
+        <div class="q">Who's filling this out?</div>
+      </legend>
+      <p class="hint">So we know who to follow up with. <span class="req">*</span> required</p>
+      <div class="grid">
+        <div>
+          <label class="f" for="name">Full name <span class="req">*</span></label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+        <div>
+          <label class="f" for="email">Email <span class="req">*</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" required inputmode="email">
+        </div>
+        <div>
+          <label class="f" for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555">
+        </div>
+        <div>
+          <label class="f">Best way to reach you</label>
+          <div class="row">
+            <label class="pill"><input type="radio" name="contact_pref" value="Text"><span>Text</span></label>
+            <label class="pill"><input type="radio" name="contact_pref" value="Call"><span>Call</span></label>
+            <label class="pill"><input type="radio" name="contact_pref" value="Email"><span>Email</span></label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 2</span>
+        <div class="q">Where are you in your investing journey?</div>
+      </legend>
+      <p class="hint">No wrong answer — this just tells us how to talk to you.</p>
+      <div class="row">
+        <label class="pill"><input type="radio" name="experience" value="Brand new"><span>Brand new, haven't done a deal</span></label>
+        <label class="pill"><input type="radio" name="experience" value="1-3 deals"><span>1–3 deals</span></label>
+        <label class="pill"><input type="radio" name="experience" value="4-10 deals"><span>4–10 deals</span></label>
+        <label class="pill"><input type="radio" name="experience" value="10+ deals"><span>10+ deals</span></label>
+        <label class="pill"><input type="radio" name="experience" value="Capital partner, not operator"><span>I bring capital, not sweat</span></label>
+      </div>
+    </fieldset>
+
+    <!-- ================= PART 2: THE EVENT ================= -->
+    <div class="part"><span class="pn">Part 2 of 5</span><span class="pt">The event</span></div>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 3</span>
+        <div class="q">On a scale of 1–10, how would you rate the event?</div>
+      </legend>
+      <p class="hint">Be honest. A 6 with a reason helps more than a polite 9. <span class="req">*</span></p>
+      <div class="scale" role="radiogroup" aria-label="Rating from 1 to 10">
+        <label><input type="radio" name="rating" value="1" required><span>1</span></label>
+        <label><input type="radio" name="rating" value="2"><span>2</span></label>
+        <label><input type="radio" name="rating" value="3"><span>3</span></label>
+        <label><input type="radio" name="rating" value="4"><span>4</span></label>
+        <label><input type="radio" name="rating" value="5"><span>5</span></label>
+        <label><input type="radio" name="rating" value="6"><span>6</span></label>
+        <label><input type="radio" name="rating" value="7"><span>7</span></label>
+        <label><input type="radio" name="rating" value="8"><span>8</span></label>
+        <label><input type="radio" name="rating" value="9"><span>9</span></label>
+        <label><input type="radio" name="rating" value="10"><span>10</span></label>
+      </div>
+      <div class="scale-ends"><span>Not worth my time</span><span>Would bring a friend</span></div>
+      <div class="sub">
+        <label class="f" for="rating_why">What drove that number?</label>
+        <textarea id="rating_why" name="rating_why" placeholder="What worked, what dragged, what you'd change"></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 4</span>
+        <div class="q">What are your 3 biggest takeaways?</div>
+      </legend>
+      <p class="hint">One line each. What stuck with you on the drive home?</p>
+      <div class="stack">
+        <div class="take"><span class="n">1</span><input type="text" name="takeaway_1" aria-label="Takeaway 1" placeholder="First takeaway"></div>
+        <div class="take"><span class="n">2</span><input type="text" name="takeaway_2" aria-label="Takeaway 2" placeholder="Second takeaway"></div>
+        <div class="take"><span class="n">3</span><input type="text" name="takeaway_3" aria-label="Takeaway 3" placeholder="Third takeaway"></div>
+      </div>
+      <label class="consent">
+        <input type="checkbox" name="quote_ok" value="Yes">
+        <span>You can quote my takeaways publicly (first name and last initial only).</span>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 5</span>
+        <div class="q">What should we go deeper on next time?</div>
+      </legend>
+      <p class="hint">Pick as many as you want.</p>
+      <div class="row">
+        <label class="pill"><input type="checkbox" name="topics" value="Live deal analysis"><span>Live deal analysis</span></label>
+        <label class="pill"><input type="checkbox" name="topics" value="Underwriting the numbers"><span>Underwriting the numbers</span></label>
+        <label class="pill"><input type="checkbox" name="topics" value="Finding private lenders"><span>Finding private lenders</span></label>
+        <label class="pill"><input type="checkbox" name="topics" value="Note investing 101"><span>Note investing 101</span></label>
+        <label class="pill"><input type="checkbox" name="topics" value="Generating leads"><span>Generating leads</span></label>
+        <label class="pill"><input type="checkbox" name="topics" value="Contracts & legal"><span>Contracts &amp; legal</span></label>
+        <label class="pill"><input type="checkbox" name="topics" value="Tax strategy"><span>Tax strategy</span></label>
+        <label class="pill"><input type="checkbox" name="topics" value="Building a team"><span>Building a team</span></label>
+        <label class="pill"><input type="checkbox" name="topics" value="Raising capital"><span>Raising capital</span></label>
+      </div>
+      <div class="sub">
+        <label class="f" for="topics_other">Something we didn't cover?</label>
+        <input type="text" id="topics_other" name="topics_other" placeholder="Optional">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 6</span>
+        <div class="q">How did you hear about this event?</div>
+      </legend>
+      <div class="row">
+        <label class="pill"><input type="radio" name="source" value="Text from host"><span>Text from you</span></label>
+        <label class="pill"><input type="radio" name="source" value="Email"><span>Email</span></label>
+        <label class="pill"><input type="radio" name="source" value="Social media"><span>Social media</span></label>
+        <label class="pill"><input type="radio" name="source" value="Friend / referral"><span>A friend brought me</span></label>
+        <label class="pill"><input type="radio" name="source" value="Other"><span>Other</span></label>
+      </div>
+    </fieldset>
+
+    <!-- ================= PART 3: WHERE YOU FIT ================= -->
+    <div class="part"><span class="pn">Part 3 of 5</span><span class="pt">Where you fit</span></div>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 7</span>
+        <div class="q">Where do you see yourself fitting into the opportunity?</div>
+      </legend>
+      <p class="hint">Check everything you're interested in — most people pick two or three.</p>
+      <div class="choices">
+        <label class="choice">
+          <input type="checkbox" name="interests" value="Referral Partner">
+          <span><span class="t">Referral Partner</span><span class="d">Make money sending leads our way — both borrowers and private cash lenders. No capital, no deal work.</span></span>
+        </label>
+        <label class="choice">
+          <input type="checkbox" name="interests" value="Acquisitions">
+          <span><span class="t">Acquisitions</span><span class="d">Find and lock up deals: sourcing, underwriting, negotiating with sellers.</span></span>
+        </label>
+        <label class="choice">
+          <input type="checkbox" name="interests" value="Passive Note Investing">
+          <span><span class="t">Passive Note Investing</span><span class="d">Mailbox money. Own the paper, collect the payments — no tenants, no rehabs.</span></span>
+        </label>
+        <label class="choice">
+          <input type="checkbox" name="interests" value="Wholesale">
+          <span><span class="t">Wholesale</span><span class="d">Contract properties and assign them to buyers for a fee. Fast in, fast out.</span></span>
+        </label>
+        <label class="choice">
+          <input type="checkbox" name="interests" value="Flips">
+          <span><span class="t">Flips</span><span class="d">Buy, renovate, sell. Bigger checks, more hands-on.</span></span>
+        </label>
+        <label class="choice">
+          <input type="checkbox" name="interests" value="Rentals">
+          <span><span class="t">Rentals</span><span class="d">Buy and hold for cash flow and long-term equity.</span></span>
+        </label>
+        <label class="choice">
+          <input type="checkbox" name="interests" value="Private Money">
+          <span><span class="t">Private Money</span><span class="d">Lend your capital on secured deals and earn a fixed return.</span></span>
+        </label>
+      </div>
+      <div class="sub">
+        <label class="f" for="interests_other">Something else, or a combination you have in mind?</label>
+        <input type="text" id="interests_other" name="interests_other" placeholder="Optional">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 8</span>
+        <div class="q">Which markets are you interested in working?</div>
+      </legend>
+      <p class="hint">Cities, counties, or states. Local, out of state, or both.</p>
+      <input type="text" id="markets" name="markets" placeholder="e.g. Jacksonville, Tampa, Atlanta metro" aria-label="Markets">
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 9</span>
+        <div class="q">How much time can you realistically put in each week?</div>
+      </legend>
+      <div class="row">
+        <label class="pill"><input type="radio" name="time_per_week" value="Under 2 hrs"><span>Under 2 hrs</span></label>
+        <label class="pill"><input type="radio" name="time_per_week" value="2-5 hrs"><span>2–5 hrs</span></label>
+        <label class="pill"><input type="radio" name="time_per_week" value="5-10 hrs"><span>5–10 hrs</span></label>
+        <label class="pill"><input type="radio" name="time_per_week" value="10-20 hrs"><span>10–20 hrs</span></label>
+        <label class="pill"><input type="radio" name="time_per_week" value="Full-time"><span>This is my full-time thing</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 10</span>
+        <div class="q">Capital you could put to work in the next 12 months?</div>
+      </legend>
+      <p class="hint">Only matters if you're leaning toward private money or passive notes. Skip it if that's not you.</p>
+      <div class="row">
+        <label class="pill"><input type="radio" name="capital" value="None yet"><span>None yet</span></label>
+        <label class="pill"><input type="radio" name="capital" value="Under $25k"><span>Under $25k</span></label>
+        <label class="pill"><input type="radio" name="capital" value="$25k-$100k"><span>$25k–$100k</span></label>
+        <label class="pill"><input type="radio" name="capital" value="$100k-$250k"><span>$100k–$250k</span></label>
+        <label class="pill"><input type="radio" name="capital" value="$250k+"><span>$250k+</span></label>
+        <label class="pill"><input type="radio" name="capital" value="Prefer not to say"><span>Prefer not to say</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 11</span>
+        <div class="q">What's the biggest thing holding you back right now?</div>
+      </legend>
+      <p class="hint">Pick up to three.</p>
+      <div class="row">
+        <label class="pill"><input type="checkbox" name="obstacles" value="Capital"><span>Capital</span></label>
+        <label class="pill"><input type="checkbox" name="obstacles" value="Finding deals"><span>Finding deals</span></label>
+        <label class="pill"><input type="checkbox" name="obstacles" value="Knowledge / confidence"><span>Knowledge / confidence</span></label>
+        <label class="pill"><input type="checkbox" name="obstacles" value="Time"><span>Time</span></label>
+        <label class="pill"><input type="checkbox" name="obstacles" value="Team / partners"><span>Team / partners</span></label>
+        <label class="pill"><input type="checkbox" name="obstacles" value="Credit"><span>Credit</span></label>
+        <label class="pill"><input type="checkbox" name="obstacles" value="Don't know where to start"><span>Don't know where to start</span></label>
+        <label class="pill"><input type="checkbox" name="obstacles" value="Nothing - ready to go"><span>Nothing — I'm ready to go</span></label>
+      </div>
+    </fieldset>
+
+    <!-- ================= PART 4: GOALS ================= -->
+    <div class="part"><span class="pn">Part 4 of 5</span><span class="pt">Your goals</span></div>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 12</span>
+        <div class="q">Where do you want to be…</div>
+      </legend>
+      <p class="hint">Dollars, deals, doors, hours a week — whatever "there" looks like for you.</p>
+      <div class="goals">
+        <div class="goal">
+          <div class="when">6 months<small data-when="6"></small></div>
+          <textarea name="goal_6mo" aria-label="Goal in 6 months" placeholder="First deal closed? First referral check?"></textarea>
+        </div>
+        <div class="goal">
+          <div class="when">1 year<small data-when="12"></small></div>
+          <textarea name="goal_1yr" aria-label="Goal in 1 year"></textarea>
+        </div>
+        <div class="goal">
+          <div class="when">5 years<small data-when="60"></small></div>
+          <textarea name="goal_5yr" aria-label="Goal in 5 years"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ================= PART 5: NEXT STEPS ================= -->
+    <div class="part"><span class="pn">Part 5 of 5</span><span class="pt">Next steps</span></div>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 13</span>
+        <div class="q">Does any of this apply to you right now?</div>
+      </legend>
+      <p class="hint">If so, we'll move fast.</p>
+      <div class="choices">
+        <label class="choice compact"><input type="checkbox" name="now" value="I have a deal that needs funding"><span class="t">I have a deal that needs funding</span></label>
+        <label class="choice compact"><input type="checkbox" name="now" value="I have capital I'd like to place"><span class="t">I have capital I'd like to place</span></label>
+        <label class="choice compact"><input type="checkbox" name="now" value="I know someone who needs funding"><span class="t">I know someone who needs funding</span></label>
+        <label class="choice compact"><input type="checkbox" name="now" value="I know someone with capital to lend"><span class="t">I know someone with capital to lend</span></label>
+        <label class="choice compact"><input type="checkbox" name="now" value="I have a property to sell"><span class="t">I have a property to sell</span></label>
+        <label class="choice compact"><input type="checkbox" name="now" value="None right now"><span class="t">None right now</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 14</span>
+        <div class="q">Want a one-on-one call to map out your next move?</div>
+      </legend>
+      <div class="row">
+        <label class="pill"><input type="radio" name="call" value="Yes - this week"><span>Yes — this week</span></label>
+        <label class="pill"><input type="radio" name="call" value="Yes - in the next month"><span>Yes — in the next month</span></label>
+        <label class="pill"><input type="radio" name="call" value="Not yet, keep me posted"><span>Not yet, keep me posted</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 15</span>
+        <div class="q">Who should have been in the room?</div>
+      </legend>
+      <p class="hint">Someone who'd benefit from the next one. We'll mention you sent them.</p>
+      <div class="grid">
+        <div>
+          <label class="f" for="ref_name">Their name</label>
+          <input type="text" id="ref_name" name="referral_name" placeholder="Optional">
+        </div>
+        <div>
+          <label class="f" for="ref_contact">Phone or email</label>
+          <input type="text" id="ref_contact" name="referral_contact" placeholder="Optional">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <span class="qnum">Question 16</span>
+        <div class="q">Anything else we should know?</div>
+      </legend>
+      <p class="hint">Questions we didn't answer, people we should meet, feedback you'd rather not say to our face.</p>
+      <textarea name="anything_else" aria-label="Anything else" placeholder="Optional"></textarea>
+    </fieldset>
+
+    <div class="submit">
+      <button type="submit" id="submitBtn">Send my answers</button>
+      <p class="err" id="formErr">Please fill in your name, email, and a rating before sending.</p>
+      <p class="fine">We'll only use this to follow up with you about the opportunity. No lists, no spam.</p>
+    </div>
+  </form>
+
+  <section id="thanks" aria-live="polite">
+    <div class="mark" aria-hidden="true">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1A1508" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 7"/></svg>
+    </div>
+    <h2>Got it. Thank you.</h2>
+    <p>Your answers are in. We read every one of these, and we'll reach out based on where you said you want to plug in.</p>
+    <p>If you asked for a call, expect to hear from us within two business days.</p>
+  </section>
+
+  <footer>
+    <b>Simple Wealth</b> &middot; Todd Snipes &amp; Chad McCall &middot; Melbourne, Florida<br>
+    Questions? Text Chad at <a href="sms:+18014035272">801-403-5272</a> or reply to the email this came from.
+  </footer>
+</div>
+
+<script>
+  // ------------------------------------------------------------
+  // OPTIONAL: Google Sheets instead of Netlify Forms.
+  // Paste your Apps Script web-app URL here (see README.md).
+  // Leave empty to use Netlify Forms.
+  // ------------------------------------------------------------
+  var SHEETS_ENDPOINT = "";
+
+  (function () {
+    var form = document.getElementById('survey');
+    var btn = document.getElementById('submitBtn');
+    var err = document.getElementById('formErr');
+    var thanks = document.getElementById('thanks');
+    var bar = document.getElementById('progress');
+
+    // Goal horizon dates, computed from today so they never go stale
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    document.querySelectorAll('[data-when]').forEach(function (el) {
+      var d = new Date(); d.setMonth(d.getMonth() + Number(el.dataset.when));
+      el.textContent = Number(el.dataset.when) >= 60 ? String(d.getFullYear()) : months[d.getMonth()] + ' ' + d.getFullYear();
+    });
+
+    // Scroll progress
+    function progress() {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? Math.min(100, (h.scrollTop / max) * 100) : 0) + '%';
+    }
+    window.addEventListener('scroll', progress, { passive: true });
+    progress();
+
+    // "None right now" is exclusive
+    var noneNow = form.querySelector('input[name="now"][value="None right now"]');
+    form.querySelectorAll('input[name="now"]').forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        if (cb === noneNow && cb.checked) {
+          form.querySelectorAll('input[name="now"]').forEach(function (o) { if (o !== noneNow) o.checked = false; });
+        } else if (cb.checked) { noneNow.checked = false; }
+      });
+    });
+
+    // Obstacles: cap at three
+    form.querySelectorAll('input[name="obstacles"]').forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        var checked = form.querySelectorAll('input[name="obstacles"]:checked');
+        if (checked.length > 3) cb.checked = false;
+      });
+    });
+
+    function valid() {
+      var ok = form.name.value.trim() && form.email.checkValidity() && form.querySelector('input[name="rating"]:checked');
+      err.classList.toggle('show', !ok);
+      return !!ok;
+    }
+
+    function done() {
+      form.style.display = 'none';
+      thanks.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      try { localStorage.setItem('surveyDone', '1'); } catch (e) {}
+    }
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      if (!valid()) { err.scrollIntoView({ block: 'center' }); return; }
+      btn.disabled = true; btn.textContent = 'Sending…';
+
+      var fd = new FormData(form);
+      var req;
+      if (SHEETS_ENDPOINT) {
+        // Apps Script: opaque response is fine, we only need the write to land.
+        req = fetch(SHEETS_ENDPOINT, { method: 'POST', mode: 'no-cors', body: fd });
+      } else {
+        // Netlify Forms: URL-encoded POST to the page's own path.
+        req = fetch(window.location.pathname || '/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(fd).toString()
+        });
+      }
+
+      req.then(function (res) {
+           // Apps Script (no-cors) returns an opaque response; Netlify returns 200.
+           // Anything else (e.g. a static host with no endpoint) is a real failure.
+           if (res && res.type !== 'opaque' && !res.ok) throw new Error('bad status');
+           done();
+         })
+         .catch(function () {
+           btn.disabled = false; btn.textContent = 'Send my answers';
+           err.textContent = "Something went wrong sending this. Please try again, or text your answers to Chad at 801-403-5272.";
+           err.classList.add('show');
+           err.scrollIntoView({ block: 'center' });
+         });
+    });
+
+    form.addEventListener('input', function () { if (err.classList.contains('show')) valid(); });
+  })();
+</script>
+</body>
+</html>
