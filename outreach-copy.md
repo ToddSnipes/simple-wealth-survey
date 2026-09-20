@@ -8,12 +8,12 @@ Live link: https://simplewealth-survey.netlify.app/ — replace `[First name]` b
 
 **Subject line options** (pick one, or A/B test two):
 
-1. Quick favor after Simple Wealth — 8 minutes
+1. Quick favor after Simple Wealth
 2. You were in the room. Now tell us what you think.
 3. What's your next move? (Simple Wealth follow-up)
 4. Real people, real deals — your turn
 
-**Preview text:** 16 quick questions. Most are one tap. Your answers shape what we do next.
+**Preview text:** A few quick questions. Your answers shape what we do next.
 
 ---
 
@@ -21,7 +21,7 @@ Hey [First name],
 
 Thank you for showing up to Simple Wealth on September 18th and 19th. A room full of people who actually want to do deals is rare, and you were part of it.
 
-Now I need something from you — about 8 minutes.
+Now I need something from you.
 
 We put together a short survey. It's not a "rate the coffee" form. It asks where you see yourself fitting in — referral partner, acquisitions, passive notes, wholesale, flips, rentals, private money — and what you want the next 6 months, 1 year, and 5 years to look like. That's how Chad and I decide who to call first and what we build next.
 
@@ -50,7 +50,7 @@ Text Chad: 801-403-5272
 
 If you want in on that, the survey is here: **https://simplewealth-survey.netlify.app/**
 
-8 minutes. Most questions are one tap.
+Most questions are one tap.
 
 Todd
 
@@ -62,7 +62,7 @@ Keep it under 160 characters if you can. Shorten the link first.
 
 **Text 1 — day of / next morning**
 
-> Todd from Simple Wealth here. Thanks for coming out! Quick 8-min survey so we know how to plug you in: https://simplewealth-survey.netlify.app/
+> Todd from Simple Wealth here. Thanks for coming out! Quick survey so we know how to plug you in: https://simplewealth-survey.netlify.app/
 
 **Text 2 — from Chad (alternate)**
 
@@ -74,11 +74,11 @@ Keep it under 160 characters if you can. Shorten the link first.
 
 **Text 4 — last call, 1 week**
 
-> Last call on the Simple Wealth survey — closing it Friday. 8 minutes: https://simplewealth-survey.netlify.app/
+> Last call on the Simple Wealth survey — closing it Friday: https://simplewealth-survey.netlify.app/
 
 ---
 
 ## Social post (optional, for the group / page)
 
-> Simple Wealth is done, and the room was exactly what we hoped for. If you were there, we want your honest take and where you see yourself fitting in — referrals, notes, flips, rentals, private money, all of it. 8 minutes: https://simplewealth-survey.netlify.app/
+> Simple Wealth is done, and the room was exactly what we hoped for. If you were there, we want your honest take and where you see yourself fitting in — referrals, notes, flips, rentals, private money, all of it: https://simplewealth-survey.netlify.app/
 > Real people. Real deals. Real opportunity.
