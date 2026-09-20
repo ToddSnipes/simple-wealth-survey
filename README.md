@@ -1,12 +1,11 @@
 # Simple Wealth — Post-Event Survey
 
-**Live at: https://toddsnipes.github.io/simple-wealth-survey/**
-(GitHub Pages, from the `main` branch of github.com/ToddSnipes/simple-wealth-survey.
-Any push to `main` republishes in about a minute.)
+**Live at: https://simplewealth-survey.netlify.app/**
+(Netlify, deployed from the `main` branch of github.com/ToddSnipes/simple-wealth-survey.
+Any push to `main` republishes in about 30 seconds.)
 
-> **Responses are NOT being saved yet.** GitHub Pages can't collect form submissions.
-> Do "Option B: Google Sheet" below before you send the link out — until then the
-> Send button will show an error to anyone who tries.
+**Responses:** https://app.netlify.com/projects/simplewealth-survey/forms → event-survey.
+Log in with GitHub. Export to CSV from there.
 
 Two files: `index.html` (the page) and `banner.jpg` (the header, cropped from the flyer).
 Keep them in the same folder.
