@@ -1,6 +1,6 @@
 # Outreach copy — Simple Wealth survey
 
-Replace `https://simplewealth-survey.netlify.app/` and `[DATE]` before sending.
+Replace `https://simplewealth-survey.netlify.app/` and `September 18th and 19th` before sending.
 
 ---
 
@@ -19,7 +19,7 @@ Replace `https://simplewealth-survey.netlify.app/` and `[DATE]` before sending.
 
 Hey [First name],
 
-Thank you for showing up to Simple Wealth on [DATE]. A room full of people who actually want to do deals is rare, and you were part of it.
+Thank you for showing up to Simple Wealth on September 18th and 19th. A room full of people who actually want to do deals is rare, and you were part of it.
 
 Now I need something from you — about 8 minutes.
 

@@ -10,10 +10,10 @@ Log in with GitHub. Export to CSV from there.
 Two files: `index.html` (the page) and `banner.jpg` (the header, cropped from the flyer).
 Keep them in the same folder.
 
-## Before you send: one edit
+## Before you send
 
-Open `index.html`, search for `EDIT:` and put in the event date. Everything else
-(event name, Melbourne FL, your names, Chad's number) is already filled in from the flyer.
+Nothing — event name, dates (Sept 18–19, 2026), Melbourne FL, your names, and Chad's
+number are all filled in from the flyer.
 
 ## Hosting — pick one
 
